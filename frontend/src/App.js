@@ -1,6 +1,6 @@
+import { useState } from "react";
 import "./App.css";
 import Dictaphone from "./components/mic";
-import { Latex } from "@onedoc/react-print";
 
 function openInOverleaf(a) {
   /*
@@ -29,20 +29,28 @@ function openInOverleaf(a) {
       return e.nodeValue;
     }
   }
-  var code = document.getElementById("tex").innerText;
+  var code = document.getElementById("tex").innerHTML;
   console.log(code);
   document.getElementById("ol_encoded_snip").value = encodeURIComponent(
-    unformat(code)
+    code
   );
   document.getElementById("ol_form").submit();
 }
 
+
+
 function App() {
+  const [tex, setTex] = useState("");
+function refresh(e){
+  setTex(e.target.value)
+}
   return (
     <>
+    <div className="flex flex-col">
       <div className="flex flex-row w-full ">
+
         <div className="flex flex-1 flex-col space-y-4">
-          <h2>text </h2>
+          <h2>Live Transcript </h2>
           <button className="bg-gray-200 p-5 ">
             <Dictaphone />
             microphone icon
@@ -57,22 +65,24 @@ function App() {
             <input id="ol_encoded_snip" type="hidden" name="encoded_snip" />
           </form>
           <dl class="codebox">
-            <dt>
-              Code:{" "}
-              <a href="#" onClick={openInOverleaf}>
-                Open in Overleaf
-              </a>
-            </dt>
             <dd>
               <pre>
-                <code id="tex">...</code>
+                <textarea id="tex" onChange={refresh} value={tex} placeholder="Speak your math!"/>
               </pre>
             </dd>
+            <dt>
+              <button href="#" classname="bg-green-200 p-2 rounded-md" onClick={openInOverleaf}> open in overleaf
+              </button>
+            </dt>
           </dl>
         </div>
 
-        <div className="flex-1">pdf display</div>
-      </div>
+        <div className="flex-1 ">pdf display
+        
+        <p>{tex}  </p> 
+        </div>
+        
+ </div>     </div>
     </>
   );
 }
