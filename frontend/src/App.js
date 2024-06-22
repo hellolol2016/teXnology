@@ -95,7 +95,7 @@ function App() {
 
           <div className="flex-1 ">
             pdf display
-            <LatexToPDF texInput={tex}/> 
+            <LatexToPDF content={tex}/> 
           </div>
         </div>{" "}
       </div>

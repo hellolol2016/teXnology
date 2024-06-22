@@ -3,9 +3,13 @@ import { AudioRecorder, useAudioRecorder } from 'react-audio-voice-recorder';
 export default function Dictaphone(){
   const recorderControls = useAudioRecorder()
   const addAudioElement = (blob) => {
+    fetch("http://localhost:5000/speechToText", {
+      blob:blob
+    })
     var file = new File([blob],"temp.mp3",{type:blob.type})
 
     const url = URL.createObjectURL(blob);
+    
     console.log(url);
     const audio = document.createElement("audio");
     audio.src = url;
@@ -18,8 +22,7 @@ export default function Dictaphone(){
       <AudioRecorder 
         onRecordingComplete={(blob) => addAudioElement(blob)}
         recorderControls={recorderControls}
-        downloadOnSavePress={true}
-        downloadFileExtension="mp3"
+        downloadFileExtension="webm"
       />
       <button onClick={recorderControls.stopRecording}>Stop recording</button>
     </div>
