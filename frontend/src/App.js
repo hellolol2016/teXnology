@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./App.css";
 import Dictaphone from "./components/mic";
 import { LaTeX, Latex } from '@fileforge/react-print';
-import {Fileforge} from "@fileforge/client"
 
 function openInOverleaf(a) {
   /*
@@ -43,52 +42,6 @@ function App() {
     setTex(e.target.value);
   }
 
-
-
-
-const Example = () => {
-
-    return (
-
-      <React.Fragment>  
-
-
-        <p> Fourier Transform </p>
-
-
-        <Latex>{String.raw`
-
-            \relax{x} = \int_{-\infty}^\infty
-
-            \hat\xi\,e^{2 \pi i \xi x}
-
-            \,d\xi
-
-        `}</Latex>
-
-
-        <p> Inverse Fourier Transform </p>
-
-
-        <Latex>{String.raw`
-
-            \hat\xi = \int_{-\infty}^\infty
-
-            x\,e^{-2 \pi i \xi x}
-
-            \,dx
-
-        `}</Latex>
-
-
-      </React.Fragment>
-
-    );
-
-  };
-
-
-const fileforge = new Fileforge("process.env.FILEFORGE_API_KEY"); //replace with you API key
 
 
 
@@ -141,7 +94,7 @@ const fileforge = new Fileforge("process.env.FILEFORGE_API_KEY"); //replace with
 
           <div className="flex-1 ">
             pdf display
-            <Latex>{tex} </Latex>
+            <LaTeX>{tex} </LaTeX>
           </div>
         </div>{" "}
       </div>
