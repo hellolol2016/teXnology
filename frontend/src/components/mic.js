@@ -19,6 +19,7 @@ export default function Dictaphone(){
         onRecordingComplete={(blob) => addAudioElement(blob)}
         recorderControls={recorderControls}
         downloadOnSavePress={true}
+        downloadFileExtension="mp3"
       />
       <button onClick={recorderControls.stopRecording}>Stop recording</button>
     </div>
