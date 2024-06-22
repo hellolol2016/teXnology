@@ -1,26 +1,24 @@
-import React from 'react';
-import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
+import { AudioRecorder, useAudioRecorder } from 'react-audio-voice-recorder';
 
-const Dictaphone = () => {
-  const {
-    transcript,
-    listening,
-    resetTranscript,
-    browserSupportsSpeechRecognition
-  } = useSpeechRecognition();
-
-  if (!browserSupportsSpeechRecognition) {
-    return <span>Browser doesn't support speech recognition.</span>;
-  }
+export default function Dictaphone(){
+  const recorderControls = useAudioRecorder()
+  const addAudioElement = (blob) => {
+    var file = new File([blob],"temp.mp3",{type:blob.type})
+    const url = URL.createObjectURL(blob);
+    console.log(url);
+    const audio = document.createElement("audio");
+    audio.src = url;
+    audio.controls = true;
+    document.body.appendChild(audio);
+  };
 
   return (
     <div>
-      <p>Microphone: {listening ? 'on' : 'off'}</p>
-      <button onClick={SpeechRecognition.startListening}>Start</button>
-      <button onClick={SpeechRecognition.stopListening}>Stop</button>
-      <button onClick={resetTranscript}>Reset</button>
-      <p>{transcript}</p>
+      <AudioRecorder 
+        onRecordingComplete={(blob) => addAudioElement(blob)}
+        recorderControls={recorderControls}
+      />
+      <button onClick={recorderControls.stopRecording}>Stop recording</button>
     </div>
-  );
-};
-export default Dictaphone;
+  )
+}
