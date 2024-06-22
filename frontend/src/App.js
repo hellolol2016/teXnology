@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import Dictaphone from "./components/mic";
 import { LaTeX, Latex } from '@fileforge/react-print';
+import LatexToPDF from "./components/tex";
 
 function openInOverleaf(a) {
   /*
@@ -94,7 +95,7 @@ function App() {
 
           <div className="flex-1 ">
             pdf display
-            <LaTeX>{tex} </LaTeX>
+            <LatexToPDF texInput={tex}/> 
           </div>
         </div>{" "}
       </div>

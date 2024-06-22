@@ -4,6 +4,7 @@ export default function Dictaphone(){
   const recorderControls = useAudioRecorder()
   const addAudioElement = (blob) => {
     var file = new File([blob],"temp.mp3",{type:blob.type})
+
     const url = URL.createObjectURL(blob);
     console.log(url);
     const audio = document.createElement("audio");
@@ -17,6 +18,7 @@ export default function Dictaphone(){
       <AudioRecorder 
         onRecordingComplete={(blob) => addAudioElement(blob)}
         recorderControls={recorderControls}
+        downloadOnSavePress={true}
       />
       <button onClick={recorderControls.stopRecording}>Stop recording</button>
     </div>
