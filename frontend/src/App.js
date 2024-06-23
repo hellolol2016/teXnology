@@ -51,11 +51,11 @@ function App() {
   return (
     <>
       <div className="flex flex-col text-center">
-        <h1>teXhnology</h1>
+        <h1 class="text-4xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-yellow-500 drop-shadow-lg">teXnology</h1>
         <div className="flex flex-row w-full ">
           <div className="flex flex-1 flex-col space-y-4">
-            <h2>Live Transcript </h2>
-            <button className="bg-gray-200 p-5 ">
+          <h2 className="text-2xl font-semibold text-gray-700">Live Transcript</h2>
+          <button className="bg-gray-200 p-5 rounded-lg shadow-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400">
               <Dictaphone />
               microphone icon
             </button>
