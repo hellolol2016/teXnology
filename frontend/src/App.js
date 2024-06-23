@@ -7,43 +7,14 @@ import { useSpeechRecognition } from "react-speech-recognition";
 import axios from "axios";
 import { FaRegClipboard } from "react-icons/fa";
 
-function openInOverleaf(a) {
-  /*
-   * Get the unformatted code from the formatted code box.
-   *
-   * Using the browser's selection isn't ideal, because it clobbers whatever
-   * the user may have had in their clipboard.
-   * It's almost possible to use innerText, but that does not work on FF.
-   * FF supports textContent, but that discards the newlines, which are
-   * represented by BR tags in the formatted code. So, we have to walk the DOM.
-   */
-  function unformat(e) {
-    var ret = "";
-    if (e.nodeType === 1) {
-      // element node
-      if (e.tagName === "BR") {
-        return "\n";
-      } else {
-        for (e = e.firstChild; e; e = e.nextSibling) {
-          ret += unformat(e);
-        }
-        return ret;
-      }
-    } else if (e.nodeType === 3 || e.nodeType === 4) {
-      // text node
-      return e.nodeValue;
-    }
-  }
-  var code = document.getElementById("tex").innerHTML;
-  console.log(code);
-  document.getElementById("ol_encoded_snip").value = encodeURIComponent(code);
-  document.getElementById("ol_form").submit();
-}
-
 function App() {
   const [tex, setTex] = useState("");
   const [isCompile, setIsCompile] = useState(false);
 
+  function openInOverleaf(a) {
+    document.getElementById("ol_encoded_snip").value = encodeURIComponent(tex);
+    document.getElementById("ol_form").submit();
+  }
   let {
     transcript,
     listening,
@@ -81,7 +52,7 @@ function App() {
     let ta = document.getElementById("tex");
     transcript = ta.value;
   }
-  function clipboard(){
+  function clipboard() {
     navigator.clipboard.writeText(tex);
     console.log(tex);
   }
@@ -97,7 +68,9 @@ function App() {
         </div>
         <div className="flex flex-row justify-center w-full mt-4 gap-7 h-full">
           <div className="flex flex-1 flex-col space-y-4">
-            <button className="p-5 rounded-lg flex flex-col justify-center focus:outline-none focus:ring-gray-400 flex items-center">
+            <button
+              className={`p-5 rounded-lg flex flex-col justify-center focus:outline-none focus:ring-gray-400 flex items-center `}
+            >
               <Dictaphone
                 transcript={transcript}
                 listening={listening}
@@ -120,7 +93,12 @@ function App() {
             <dl className="">
               <dd className="flex flex-row justify-center">
                 <pre className="relative w-5/6">
-                  <button className="absolute right-4 bottom-4 hover:bg-gray-200 p-3 rounded-full " onClick={clipboard}>
+                  <button
+                    className={`${
+                      tex.length == 0 ? "hidden" : ""
+                    } absolute right-4 bottom-4 hover:bg-gray-200 p-3 rounded-full `}
+                    onClick={clipboard}
+                  >
                     <FaRegClipboard className="w-6 h-6" />
                   </button>
                   <textarea
