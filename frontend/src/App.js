@@ -54,6 +54,9 @@ function App() {
   useEffect(() => {
     document.getElementById("tex").value = transcript;
   }, [transcript]);
+  useEffect(() => {
+    document.getElementById("tex").value = tex;
+  }, [tex]);
 
   async function postTextToLatex(text) {
     const response = await axios.post(
@@ -68,10 +71,12 @@ function App() {
     return response.data;
   }
 
-  async function refresh(e) {
-    transcript = document.getElementById("tex").value;
-    setTex(await postTextToLatex(transcript));
+  async function refresh() {
+    transcript = document.getElementById("tex");
+    let latex = await postTextToLatex(transcript.value)
+    setTex(latex);
     console.log(tex);
+
   }
   function updateTex() {
     let ta = document.getElementById("tex") 
