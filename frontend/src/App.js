@@ -140,7 +140,7 @@ function App() {
                   onClick={refresh}
                 >
                   {" "}
-                  Refresh
+                  Compile
                 </button>
               </dt>
             </dl>
