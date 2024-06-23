@@ -150,7 +150,7 @@ function App() {
             <p className="text-2xl font-semibold text-gray-700">
               Latex Preview
             </p>
-            <div className=" bg-gray-200 p-5 rounded-lg shadow-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 flex items-center h-full">
+            <div className=" bg-gray-200 p-5 rounded-lg shadow-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 flex justify-center h-full">
               <Latex>{tex}</Latex>
             </div>
           </div>
