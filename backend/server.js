@@ -23,9 +23,10 @@ const groq = new Groq({
 
 const system_message = {
   role: "system",
-  content: `convert this text to latex. Use latex symbols and equations when appropriate. Just return the users text written in latex.
-  Keep the english as regular text, but convert any equations to latex or use latex symbols when appropriate. Do not say add any of your own text,
-  own commentary  or qualify the statement in any way. Make the sentence logically equivalent to the original, simply replacing parts with latex when needed.`,
+  content: `convert this text to latex. Use latex symbols and equations when appropriate. 
+  Just return the users text written in latex. Keep the non-equations as regular text,
+   but convert any equations to latex or use latex symbols when appropriate. Do not say add any of your own text, 
+   own commentary  or qualify the statement in anyway.`,
 };
 
 const getGroqResponse = async (messages) => {
