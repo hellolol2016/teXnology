@@ -87,7 +87,7 @@ function App() {
 
   return (
     <>
-      <div className="flex flex-col text-center p-4 h-full border">
+      <div className="flex flex-col text-center p-4 h-screen border bg-gradient-to-b from-gray-50 to-gray-150">
         <h1 className="text-4xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-700 via-green-800 to-green-900 drop-shadow-lg font-serif leading-tight pb-2">
           teXnology
         </h1>
@@ -140,15 +140,19 @@ function App() {
                   onClick={refresh}
                 >
                   {" "}
-                  Refresh
+                  Compile
                 </button>
               </dt>
             </dl>
           </div>
 
-          <div className="flex-1 flex-col bg-gray-100 hover:bg-gray-200 rounded-md">
-            <p>Latex Preview</p>
-            <Latex>{tex}</Latex>
+          <div className="flex-1 flex-col space-y-4">
+            <p className="text-2xl font-semibold text-gray-700">
+              Latex Preview
+            </p>
+            <div className=" bg-gray-200 p-5 rounded-lg shadow-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 flex justify-center h-full">
+              <Latex>{tex}</Latex>
+            </div>
           </div>
         </div>
       </div>
