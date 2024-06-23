@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import { FaRegCirclePlay} from 'react-icons/fa6';
 import { FaRegStopCircle} from 'react-icons/fa';
+import { RxReset} from 'react-icons/rx';
 
 
 
@@ -22,15 +23,15 @@ const Dictaphone = ({transcript, listening, resetTranscript, browserSupportsSpee
     setRecording(false)
   }
   return (
-    <div>
-      <p className={`font-bold ${listening ?"text-red-400":"text-gray-600"}`}>Microphone: {listening ? 'on' : 'off'}</p> 
+    <div className='w-full'> 
+      
+      <div className='flex flex-row w-full justify-center'>
+      {!recording && <button onClick={startListening} className='bg-blue-400 p-2 rounded-lg shadow-md'><FaRegCirclePlay  className="w-24 h-24" /></button>}
+      {recording && <button onClick={stopListening} className='bg-red-400 p-2 rounded-lg shadow-md'><FaRegStopCircle className="w-24 h-24"/></button>}
+      <div className='w-20'></div>
 
-      
-      
-      
-      {!recording && <button onClick={startListening} className='bg-blue-200 p-2 rounded-lg'><FaRegCirclePlay  className="w-6 h-6" /></button>}
-      {recording && <button onClick={stopListening} className='bg-red-200 p-2 rounded-lg'><FaRegStopCircle className="w-6 h-6"/></button>}
-      <button onClick={resetTranscript} className='bg-yellow-200 p-2'>Compile</button>
+      <button onClick={resetTranscript} className='bg-yellow-300 p-2 rounded-lg shadow-md'><RxReset className='w-24 h-24' /></button>
+</div>
     </div>
   );
 };
