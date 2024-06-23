@@ -73,24 +73,22 @@ function App() {
 
   async function refresh() {
     transcript = document.getElementById("tex");
-    let latex = await postTextToLatex(transcript.value)
+    let latex = await postTextToLatex(transcript.value);
     setTex(latex);
     console.log(tex);
-
   }
   function updateTex() {
-    let ta = document.getElementById("tex") 
-    transcript = ta.value
+    let ta = document.getElementById("tex");
+    transcript = ta.value;
   }
-
 
   return (
     <>
-      <div className="flex flex-col text-center p-4">
+      <div className="flex flex-col text-center p-4 h-full border">
         <h1 className="text-4xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-700 via-green-800 to-green-900 drop-shadow-lg font-serif leading-tight pb-2">
           teXnology
         </h1>
-        <div className="flex flex-row w-full mt-4">
+        <div className="flex flex-row w-full mt-4 gap-7 h-full">
           <div className="flex flex-1 flex-col space-y-4">
             <h2 className="text-2xl font-semibold text-gray-700">
               Live Transcript
@@ -103,11 +101,6 @@ function App() {
                 browserSupportsSpeechRecognition={
                   browserSupportsSpeechRecognition
                 }
-              />
-              <img
-                src="/mic.jpg"
-                alt="Microphone Icon"
-                className="ml-2 w-6 h-6"
               />
             </button>
 
@@ -150,7 +143,7 @@ function App() {
             </dl>
           </div>
 
-          <div className="flex-1 flex-col">
+          <div className="flex-1 flex-col bg-gray-100 hover:bg-gray-200 rounded-md">
             <p>Latex Preview</p>
             <Latex>{tex}</Latex>
           </div>
