@@ -5,6 +5,7 @@ import Dictaphone from "./components/mic";
 import Latex from "react-latex-next";
 import { useSpeechRecognition } from "react-speech-recognition";
 import axios from "axios";
+import { FaRegClipboard } from "react-icons/fa";
 
 function openInOverleaf(a) {
   /*
@@ -80,6 +81,10 @@ function App() {
     let ta = document.getElementById("tex");
     transcript = ta.value;
   }
+  function clipboard(){
+    navigator.clipboard.writeText(tex);
+    console.log(tex);
+  }
 
   return (
     <>
@@ -90,11 +95,8 @@ function App() {
             teXnology
           </h1>
         </div>
-        <div className="flex flex-row w-full mt-4 gap-7 h-full">
+        <div className="flex flex-row justify-center w-full mt-4 gap-7 h-full">
           <div className="flex flex-1 flex-col space-y-4">
-            <h2 className="text-2xl font-semibold text-gray-700">
-              Live Transcript
-            </h2>
             <button className="p-5 rounded-lg flex flex-col justify-center focus:outline-none focus:ring-gray-400 flex items-center">
               <Dictaphone
                 transcript={transcript}
@@ -115,12 +117,15 @@ function App() {
               <input id="ol_encoded_snip" type="hidden" name="encoded_snip" />
             </form>
             <h1 className="text-xl font-bol">LaTeX Code</h1>
-            <dl className="codebox">
-              <dd>
-                <pre>
+            <dl className="">
+              <dd className="flex flex-row justify-center">
+                <pre className="relative w-5/6">
+                  <button className="absolute right-4 bottom-4 hover:bg-gray-200 p-3 rounded-full " onClick={clipboard}>
+                    <FaRegClipboard className="w-10 h-10" />
+                  </button>
                   <textarea
                     id="tex"
-                    className="bg-gray-100 p-3 text-xl w-5/6 min-h-96 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-gray-400"
+                    className="bg-gray-100 p-3 text-xl w-full min-h-96 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-gray-400"
                     placeholder="Speak your math!"
                     onChange={updateTex}
                   />
@@ -129,7 +134,7 @@ function App() {
               <dt>
                 <button
                   href="#"
-                  className="bg-blue-200 p-2 rounded-md shadow-md hover:bg-blue-300"
+                  className="border-4 border-black  font-bold font-lg p-3 px-4 rounded-md hover:shadow-md hover:bg-gray-100 m-3"
                   onClick={refresh}
                 >
                   Compile
@@ -148,19 +153,15 @@ function App() {
 
             <button
               href="#"
-              className="bg-green-200 p-2 rounded-md shadow-md"
+              className="border-4 border-black  font-bold font-lg p-3 px-4 rounded-md hover:shadow-md hover:bg-gray-100 m-3"
               onClick={openInOverleaf}
             >
               Open in Overleaf
             </button>
-                <button
-                  href="#"
-                  className="bg-green-200 p-2 rounded-md shadow-md hover:bg-green-300"
-                  onClick={openInOverleaf}
-                >
-                  Open in Overleaf
-                </button>
           </div>
+        </div>
+        <div className="flex flex-col text-xl drow-shadow-md">
+          Made with ❤️ with React
         </div>
       </div>
     </>
