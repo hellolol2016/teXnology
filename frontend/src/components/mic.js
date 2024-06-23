@@ -23,14 +23,14 @@ const Dictaphone = ({transcript, listening, resetTranscript, browserSupportsSpee
   }
   return (
     <div>
-      <p>Microphone: {listening ? 'on' : 'off'}</p> 
+      <p className={`font-bold ${listening ?"text-red-400":"text-gray-600"}`}>Microphone: {listening ? 'on' : 'off'}</p> 
 
       
       
-
-      {!recording && <button onClick={startListening} className='bg-blue-200 p-2'><FaRegCirclePlay  className="ml-2 w-6 h-6" /></button>}
-      {recording && <button onClick={stopListening} className='bg-red-200 p-2'><FaRegStopCircle className="ml-2 w-6 h-6"/></button>}
-      <button onClick={resetTranscript} className='bg-yellow-200 p-2'>Reset</button>
+      
+      {!recording && <button onClick={startListening} className='bg-blue-200 p-2 rounded-lg'><FaRegCirclePlay  className="w-6 h-6" /></button>}
+      {recording && <button onClick={stopListening} className='bg-red-200 p-2 rounded-lg'><FaRegStopCircle className="w-6 h-6"/></button>}
+      <button onClick={resetTranscript} className='bg-yellow-200 p-2'>Compile</button>
     </div>
   );
 };
