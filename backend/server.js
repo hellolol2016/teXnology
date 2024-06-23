@@ -21,9 +21,9 @@ const groq = new Groq({
 
 const system_message = {
   role: "system",
-  content: `convert this text to latex. Use latex symbols and equations when appropriate. 
-  Just return the users text written in latex. Keep the non-equations as regular text,
-   but convert any equations to latex or use latex symbols when appropriate. Do not say add any of your own text, 
+  content: `convert this english text to latex. Use latex symbols and equations when appropriate. 
+  Only return the users text written in latex. Keep the non-equations as regular text,
+   but convert all equations to latex or use latex symbols when appropriate. Do not say add any of your own text, 
    own commentary  or qualify the statement in anyway.`,
 };
 
@@ -31,6 +31,7 @@ const getGroqResponse = async (messages) => {
   return groq.chat.completions.create({
     messages: messages,
     model: "llama3-8b-8192",
+    temperature: 0.15,
   });
 };
 
