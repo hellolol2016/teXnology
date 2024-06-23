@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
+import 'katex/dist/katex.min.css';
 import Dictaphone from "./components/mic";
-import { LaTeX, Latex, compile } from "@fileforge/react-print";
-import LatexToPDF from "./components/tex";
+import Latex from "react-latex-next";
 import { useSpeechRecognition } from "react-speech-recognition";
 import LatexPreview from "./components/tex";
 import axios from "axios";
@@ -69,10 +69,9 @@ function App() {
   }
 
   async function refresh(e) {
-    transcript = e.target.value;
+    transcript = document.getElementById("tex").value;
     setTex(await postTextToLatex(transcript));
     console.log(tex);
-    setIsCompile(true);
   }
 
   return (
@@ -108,9 +107,9 @@ function App() {
                 <pre>
                   <textarea
                     id="tex"
-                    onChange={refresh}
                     className="bg-gray-100 p-3 w-1/2"
                     placeholder="Speak your math!"
+                    value={tex}
                   />
                 </pre>
               </dd>
@@ -122,13 +121,21 @@ function App() {
                 >
                   Open in Overleaf
                 </button>
+                <button
+                  href="#"
+                  className="bg-blue-200 p-2 rounded-md"
+                  onClick={refresh}
+                >
+                  {" "}
+                  Refresh 
+                </button>
               </dt>
             </dl>
           </div>
-  
-          <div className="flex-1 p-4">
-            pdf display
-            <LatexPreview isCompile={setIsCompile} content={tex} />
+
+          <div className="flex-1 flex-col">
+            <p>Latex Preview</p>
+            <Latex>{tex}</Latex>
           </div>
         </div>
       </div>
