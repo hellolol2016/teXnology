@@ -12,6 +12,7 @@ var cors = require("cors");
 var fs = require("fs");
 var path = require("path");
 var temp = require("temp");
+import { Buffer } from "buffer";
 
 app.use(cors());
 app.use(fileupload());
@@ -62,7 +63,7 @@ app.post("/upload", function (req, res) {
 
   res.setHeader("Content-Type", "application/pdf");
 
-  let buf = new Buffer(req.body.foo.toString("utf8"), "base64");
+  let buf = Buffer.from(req.body.foo.toString("utf8"), "base64");
   let text = buf.toString();
 
   const pdf = latex(text, options);
@@ -78,7 +79,7 @@ app.post("/upload", function (req, res) {
 
 app.post("/compile", function (req, res) {
   try {
-    let buf = new Buffer(req.body.foo.toString("utf8"), "base64");
+    let buf = Buffer.from(req.body.foo.toString("utf8"), "base64");
     var uid = "tempfile";
     var name = uid + ".tex";
 

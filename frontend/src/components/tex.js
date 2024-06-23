@@ -1,26 +1,49 @@
+//This is the default placeholder Markup for the App
+/* eslint-disable max-len */
+/* eslint-disable no-console */
+/* eslint-disable arrow-body-style */
+/* eslint-disable padding-line-between-statements */
+/* eslint-disable semi */
+/* eslint-disable arrow-parens */
+/* eslint-disable block-scoped-var */
+/* eslint-disable no-redeclare */
+/* eslint-disable one-var */
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
+import { CgSoftwareDownload as SaveIcon } from "react-icons/cg";
+import { CgCoffee as CompileIcon } from "react-icons/cg";
+import { RiFullscreenFill as FullScreenIcon } from "react-icons/ri";
 import { Document, Page, pdfjs } from "react-pdf";
-import {Audio} from "react-loader-spinner";
-
+import {Puff} from "react-loader-spinner";
+import styled, { css } from "styled-components";
+import themeData from "../data/theme";
+import useLocalStorage from "../hooks/useLocalStorage";
+import { Buffer } from "buffer";
 pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 
-function LatexPreview({ content}) {
+function LatexPreview({ content,isCompile}) {
   const [rawFile, setRawFile] = useState("");
   const [rawResponse, setRawResponse] = useState({});
+  const handle = useFullScreenHandle();
   const [isLoading, setIsLoading] = useState(false);
   
  
   const [numPages, setNumPages] = useState(null);
+  const [activeTheme, setActiveTheme] = useLocalStorage("theme", themeData[0]);
 
   useEffect(() => {
     handleCompile();
-  }, [content]);
+  }, []);
 
   
   const postData = () => {
+    const content = localStorage.getItem("latex");
+    const encodedString = Buffer.from(content, "base64");
+
     const formData = new FormData();
-    formData.append("foo", content);
+    formData.append("foo", encodedString);
 
     fetch("/upload", {
       method: "POST",
@@ -54,6 +77,8 @@ function LatexPreview({ content}) {
       .catch((error) => console.log(error));
   };
 
+  const handleFullScreen = () =>
+    handle.active ? handle.exit() : handle.enter();
 
   const handleSaveClick = () => {
     let link = document.createElement("a");
@@ -63,6 +88,7 @@ function LatexPreview({ content}) {
   };
   const handleCompile = () => {
     setIsLoading(true);
+    isCompile(true);
     postData();
   };
   function onDocumentLoadSuccess({ numPages: nextNumPages }) {
@@ -70,9 +96,31 @@ function LatexPreview({ content}) {
   }
 
   return (
-    <div
+    <div className="latex-preview scroll">
+      <div className="section-title">
+        <h3>Preview</h3>
+        <div className="right-section">
+          <div >
+            <button className="btn" onClick={handleCompile}>
+              <CompileIcon />
+            </button>
+          </div>
+          <div>
+            <button className="btn" onClick={handleSaveClick}>
+              <SaveIcon />
+            </button>
+          </div>
+          <div>
+            <button className="btn" onClick={handleFullScreen}>
+              <FullScreenIcon />
+            </button>
+          </div>
+        </div>
+      </div>
+      <FullScreen handle={handle}>
+        <div
           id="preview"
-          className={`html-div `}
+          className={`html-div ${handle.active ? "preview-fullscreen" : ""}`}
         >
           {(() => {
             if (isLoading) {
@@ -80,17 +128,17 @@ function LatexPreview({ content}) {
               if (localStorage.getItem("theme")) {
                 color = JSON.parse(localStorage.getItem("theme")).primaryColor;
               } else {
+                color = activeTheme.primaryColor;
               }
               return (
-                <div>
-                  <Audio
-                    type="Puff"
+                <Fallbackcontainer>
+                  <Puff
                     height={100}
                     color={color}
                     width={100}
                     timeout={3000}
                   />{" "}
-                </div>
+                </Fallbackcontainer>
               );
             }
 
@@ -99,7 +147,7 @@ function LatexPreview({ content}) {
             }
             if (Object.keys(rawFile).length !== 0) {
               return (
-                <div>
+                <DefaultContainer>
                   <Document
                     file={rawFile}
                     onLoadSuccess={onDocumentLoadSuccess}
@@ -113,13 +161,21 @@ function LatexPreview({ content}) {
                       />
                     ))}
                   </Document>
-                </div>
+                </DefaultContainer>
               );
             }
           })()}
         </div>
+      </FullScreen>
+    </div>
   );
 }
 
 export default LatexPreview;
 
+const Fallbackcontainer = styled.div`
+  transform: translateX(50%);
+`;
+const DefaultContainer = styled.div`
+  color: transparent;
+`;

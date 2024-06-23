@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import Dictaphone from "./components/mic";
 import { LaTeX, Latex } from '@fileforge/react-print';
 import LatexToPDF from "./components/tex";
+import { useSpeechRecognition } from "react-speech-recognition";
+import LatexPreview from "./components/tex";
 
 function openInOverleaf(a) {
   /*
@@ -39,14 +41,23 @@ function openInOverleaf(a) {
 
 function App() {
   const [tex, setTex] = useState("");
+  const [isCompile,setIsCompile] = useState(false)
+
+  let {
+    transcript,
+    listening,
+    resetTranscript,
+    browserSupportsSpeechRecognition
+  } = useSpeechRecognition();
+
+  useEffect(() => {
+    
+    document.getElementById("tex").value = transcript; 
+  }, [transcript]);
+
   function refresh(e) {
-    setTex(e.target.value);
+    transcript = e.target.value 
   }
-
-
-
-
-
 
   return (
     <>
@@ -55,9 +66,9 @@ function App() {
         <div className="flex flex-row w-full ">
           <div className="flex flex-1 flex-col space-y-4">
             <h2>Live Transcript </h2>
+            <p>"{transcript}"</p>
             <button className="bg-gray-200 p-5 ">
-              <Dictaphone />
-              microphone icon
+              <Dictaphone transcript={transcript} listening={listening} resetTranscript={resetTranscript} browserSupportsSpeechRecognition={browserSupportsSpeechRecognition} />
             </button>
 
             <form
@@ -74,7 +85,6 @@ function App() {
                   <textarea
                     id="tex"
                     onChange={refresh}
-                    value={tex}
                     className="bg-gray-100 p-3 w-1/2"
                     placeholder="Speak your math!"
                   />
@@ -95,7 +105,7 @@ function App() {
 
           <div className="flex-1 ">
             pdf display
-            <LatexToPDF content={tex}/> 
+            <LatexPreview isCompile={setIsCompile} content={transcript}/> 
           </div>
         </div>{" "}
       </div>
