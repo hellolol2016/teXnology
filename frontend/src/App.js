@@ -6,6 +6,7 @@ import Latex from "react-latex-next";
 import { useSpeechRecognition } from "react-speech-recognition";
 import LatexPreview from "./components/tex";
 import axios from "axios";
+import { GiMicrophone } from "react-icons/gi";
 
 function openInOverleaf(a) {
   /*
@@ -102,6 +103,7 @@ function App() {
                   browserSupportsSpeechRecognition
                 }
               />
+              <GiMicrophone className="ml-2 w-6 h-6" />
             </button>
 
             <form
