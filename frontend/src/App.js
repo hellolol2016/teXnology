@@ -105,9 +105,6 @@ function App() {
                   browserSupportsSpeechRecognition
                 }
               />
-              <FaRegCirclePlay className="ml-2 w-6 h-6" />
-              <GrPowerReset className="ml-2 w-6 h-6"/>
-              <FaRegStopCircle className="ml-2 w-6 h-6"/>
             </button>
 
             <form
