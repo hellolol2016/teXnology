@@ -6,8 +6,6 @@ const fileupload = require("express-fileupload");
 const app = express();
 var cors = require("cors");
 var path = require("path");
-var temp = require("temp");
-const { Buffer } = require("buffer");
 
 app.use(cors());
 app.use(fileupload());

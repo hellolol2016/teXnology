@@ -88,9 +88,11 @@ function App() {
   return (
     <>
       <div className="flex flex-col text-center p-4 h-screen border bg-gradient-to-b from-gray-50 to-gray-150">
-        <h1 className="text-4xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-700 via-green-800 to-green-900 drop-shadow-lg font-serif leading-tight pb-2">
-          teXnology
-        </h1>
+        <div className="flex flex-row justify-center">
+          <h1 className="text-4xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-700 via-green-800 to-green-900 drop-shadow-lg font-serif leading-tight pb-2">
+            teXnology
+          </h1>
+        </div>
         <div className="flex flex-row w-full mt-4 gap-7 h-full">
           <div className="flex flex-1 flex-col space-y-4">
             <h2 className="text-2xl font-semibold text-gray-700">
@@ -115,7 +117,7 @@ function App() {
             >
               <input id="ol_encoded_snip" type="hidden" name="encoded_snip" />
             </form>
-                <h1 className="text-xl font-bol">LaTeX Code</h1>
+            <h1 className="text-xl font-bol">LaTeX Code</h1>
             <dl className="codebox">
               <dd>
                 <pre>
@@ -145,16 +147,15 @@ function App() {
             </p>
             <div className=" bg-gray-200 p-5 rounded-lg shadow-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 flex justify-center h-5/6">
               <Latex>{tex}</Latex>
-
             </div>
 
-                <button
-                  href="#"
-                  className="bg-green-200 p-2 rounded-md shadow-md"
-                  onClick={openInOverleaf}
-                >
-                  Open in Overleaf
-                </button>
+            <button
+              href="#"
+              className="bg-green-200 p-2 rounded-md shadow-md"
+              onClick={openInOverleaf}
+            >
+              Open in Overleaf
+            </button>
           </div>
         </div>
       </div>
