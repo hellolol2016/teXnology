@@ -7,7 +7,7 @@ import { useSpeechRecognition } from "react-speech-recognition";
 import LatexPreview from "./components/tex";
 import axios from "axios";
 import { FaRegCirclePlay } from "react-icons/fa6";
-import { FaRegPauseCircle } from "react-icons/fa";
+import { GrPowerReset } from "react-icons/gr";
 import { FaRegStopCircle } from "react-icons/fa";
 
 function openInOverleaf(a) {
@@ -105,8 +105,8 @@ function App() {
                   browserSupportsSpeechRecognition
                 }
               />
-              <FaRegCirclePlay  className="ml-2 w-6 h-6" />
-              <FaRegPauseCircle className="ml-2 w-6 h-6"/>
+              <FaRegCirclePlay className="ml-2 w-6 h-6" />
+              <GrPowerReset className="ml-2 w-6 h-6"/>
               <FaRegStopCircle className="ml-2 w-6 h-6"/>
             </button>
 
