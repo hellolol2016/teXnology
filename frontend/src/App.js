@@ -121,7 +121,7 @@ function App() {
               <dd className="flex flex-row justify-center">
                 <pre className="relative w-5/6">
                   <button className="absolute right-4 bottom-4 hover:bg-gray-200 p-3 rounded-full " onClick={clipboard}>
-                    <FaRegClipboard className="w-10 h-10" />
+                    <FaRegClipboard className="w-6 h-6" />
                   </button>
                   <textarea
                     id="tex"
@@ -147,8 +147,8 @@ function App() {
             <p className="text-2xl font-semibold text-gray-700">
               Latex Preview
             </p>
-            <div className=" bg-gray-200 p-5 rounded-lg shadow-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 flex justify-center h-5/6">
-              <Latex>{tex}</Latex>
+            <div className="flex align-left bg-gray-200 p-5 rounded-lg shadow-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 h-5/6">
+              <Latex className="font-xl">{tex}</Latex>
             </div>
 
             <button
