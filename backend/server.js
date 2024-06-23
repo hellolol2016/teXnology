@@ -23,11 +23,9 @@ const groq = new Groq({
 
 const system_message = {
   role: "system",
-  content: `convert this text to latex. return ONLY the latex code, translating ONLY what the user told you. The following input was gotten 
-    from speech to text, so there may be some typos. You can make some minor adjustments as you deem necessary, but don't make any major
-    changes to the original. Try to avoid adding parenthesis, brackets, and curly braces on your own, followng what the user explicity 
-    states. For example, only add them if they explicity say "open parenthsis" or "closed curly brace". Remember, return ONLY the latex equivalent
-    of the input from the user.`,
+  content: `convert this text to latex. Use latex symbols and equations when appropriate. Just return the users text written in latex.
+  Keep the english as regular text, but convert any equations to latex or use latex symbols when appropriate. Do not say add any of your own text,
+  own commentary  or qualify the statement in any way. Make the sentence logically equivalent to the original, simply replacing parts with latex when needed.`,
 };
 
 const getGroqResponse = async (messages) => {
