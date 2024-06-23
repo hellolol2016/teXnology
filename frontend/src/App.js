@@ -85,14 +85,14 @@ function App() {
           <div className="flex flex-1 flex-col space-y-4">
             <h2 className="text-2xl font-semibold text-gray-700">Live Transcript</h2>
             <p>"{transcript}"</p>
-            <button className="bg-gray-200 p-5 rounded-lg shadow-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400">
+            <button className="bg-gray-200 p-5 rounded-lg shadow-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 flex items-center">
               <Dictaphone
                 transcript={transcript}
                 listening={listening}
                 resetTranscript={resetTranscript}
                 browserSupportsSpeechRecognition={browserSupportsSpeechRecognition}
               />
-              <span className="ml-2">microphone icon</span>
+              <img src="/mic.jpg" alt="Microphone Icon" className="ml-2 w-6 h-6" />
             </button>
   
             <form
@@ -125,17 +125,16 @@ function App() {
               </dt>
             </dl>
           </div>
-
-          <div className="flex-1 flex-col">
-            <p>Latex Preview</p>
-            <p> {tex} </p>
-
-            <LatexPreview input={tex} />
+  
+          <div className="flex-1 p-4">
+            pdf display
+            <LatexPreview isCompile={setIsCompile} content={tex} />
           </div>
         </div>
       </div>
     </>
   );
+  
   
     
 }
