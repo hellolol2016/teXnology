@@ -23,7 +23,7 @@ system_message = {
 app = Flask(__name__)
 
 # Create endpoint for groq API call
-@app.route('/textToLatex', methods=['POST'])
+@app.route('/textToLatex', methods=['POST'])    
 def text_to_latex():
     user_prompt = request.json['prompt']
     user_message = {

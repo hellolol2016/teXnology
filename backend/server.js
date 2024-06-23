@@ -1,11 +1,13 @@
+// import Groq from "groq-sdk";
+const Groq = require("groq-sdk");
 const express = require("express");
-const parser = require("./src/latex/latex-log-parser");
+const parser = require("./latex/latex-log-parser");
 const fileupload = require("express-fileupload");
 const app = express();
 const PORT = process.env.PORT || 8080;
 const latex = require("node-latex");
 const { join, resolve } = require("path");
-const { compileTex } = require("./src/latex/tex-compiler.js");
+const { compileTex } = require("./latex/tex-compiler.js");
 var cors = require("cors");
 var fs = require("fs");
 var path = require("path");
@@ -19,14 +21,31 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname + "/build/index.html"));
 });
 
+const groq = new Groq({
+  apiKey: "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",
+});
 
-app.post("/textToLatex", (req,res)=>{
-  //groq stuff 
-  const query = req.body.query;
+const system_message = {
+  role: "system",
+  content:
+    "convert this text to latex. eliminate redundant phrases as necessary. return only the latex code. don't say 'here is the equivalent latex code' or qualify the statement in any way.",
+};
 
-  res.status(200).send()
-})
+app.post("/textToLatex", (req, res) => {
+  //groq stuff
+  const user_prompt = req.body.query;
+  const user_message = {
+    role: "user",
+    content: user_prompt,
+  };
+  messages = [system_message, user_message];
+  chat_completion = groq.chat.completions.create({
+    messages: messages,
+    model: "llama3-8b-8192",
+  });
 
+  res.status(200).send(chat_completion.message[0]?.message?.content || "");
+});
 
 app.post("/upload", function (req, res) {
   const options = {
@@ -70,7 +89,9 @@ app.post("/compile", function (req, res) {
             encoding: "utf8",
           });
 
-          let result = parser.latexParser().parse(stream, { ignoreDuplicates: true });
+          let result = parser
+            .latexParser()
+            .parse(stream, { ignoreDuplicates: true });
 
           if (result.errors.length > 0) {
             result.errors.forEach(function (item, index) {
