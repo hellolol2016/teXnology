@@ -131,7 +131,7 @@ function App() {
 
             <button
               href="#"
-              className="border-4 border-black  font-bold font-lg p-3 px-4 rounded-md hover:shadow-md hover:bg-gray-100 m-3"
+              className={`${tex.length==0?"hidden ": ""} border-4 border-black  font-bold font-lg p-3 px-4 rounded-md hover:shadow-md hover:bg-gray-100 m-3`}
               onClick={openInOverleaf}
             >
               Open in Overleaf
