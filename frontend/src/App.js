@@ -53,7 +53,7 @@ function App() {
 
   useEffect(() => {
     document.getElementById("tex").value = transcript;
-  }, [transcript])
+  }, [transcript]);
 
   async function postTextToLatex(text) {
     const response = await axios.post(
@@ -127,9 +127,10 @@ function App() {
             </dl>
           </div>
 
-          <div className="flex-1 ">
-            pdf display
-            <LatexPreview isCompile={setIsCompile} content={tex} />
+          <div className="flex-1 flex-col">
+            <p>Latex Preview</p>
+
+            <LatexPreview input={tex} />
           </div>
         </div>{" "}
       </div>

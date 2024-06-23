@@ -2,15 +2,16 @@
 const Groq = require("groq-sdk");
 const express = require("express");
 const app = express();
-const PORT = process.env.PORT || 8080;
 var path = require("path");
+const cors = require("cors");
+app.use(cors)
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname + "/build/index.html"));
 });
 
 const groq = new Groq({
-  apiKey: "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",
+  apiKey: "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",
 });
 
 const getGroqResponse = async (messages) => {
@@ -73,8 +74,8 @@ app.post("/textToLatex", async (req, res) => {
 //     }
 // });
 
-// // Start the server
-// const port = process.env.PORT || 3000;
-// app.listen(port, () => {
-//     console.log(`Server running on port ${port}`);
-// });
+// Start the server
+const port = process.env.PORT || 8080;
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+});
