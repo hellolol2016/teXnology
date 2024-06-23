@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import 'katex/dist/katex.min.css';
+import "katex/dist/katex.min.css";
 import Dictaphone from "./components/mic";
 import Latex from "react-latex-next";
 import { useSpeechRecognition } from "react-speech-recognition";
@@ -82,18 +82,26 @@ function App() {
         </h1>
         <div className="flex flex-row w-full mt-4">
           <div className="flex flex-1 flex-col space-y-4">
-            <h2 className="text-2xl font-semibold text-gray-700">Live Transcript</h2>
+            <h2 className="text-2xl font-semibold text-gray-700">
+              Live Transcript
+            </h2>
             <p>"{transcript}"</p>
             <button className="bg-gray-200 p-5 rounded-lg shadow-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 flex items-center">
               <Dictaphone
                 transcript={transcript}
                 listening={listening}
                 resetTranscript={resetTranscript}
-                browserSupportsSpeechRecognition={browserSupportsSpeechRecognition}
+                browserSupportsSpeechRecognition={
+                  browserSupportsSpeechRecognition
+                }
               />
-              <img src="/mic.jpg" alt="Microphone Icon" className="ml-2 w-6 h-6" />
+              <img
+                src="/mic.jpg"
+                alt="Microphone Icon"
+                className="ml-2 w-6 h-6"
+              />
             </button>
-  
+
             <form
               id="ol_form"
               action="https://www.overleaf.com/docs"
@@ -109,7 +117,6 @@ function App() {
                     id="tex"
                     className="bg-gray-100 p-3 w-1/2"
                     placeholder="Speak your math!"
-                    value={tex}
                   />
                 </pre>
               </dd>
@@ -127,7 +134,7 @@ function App() {
                   onClick={refresh}
                 >
                   {" "}
-                  Refresh 
+                  Refresh
                 </button>
               </dt>
             </dl>
@@ -141,9 +148,6 @@ function App() {
       </div>
     </>
   );
-  
-  
-    
 }
 
 export default App;
