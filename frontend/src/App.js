@@ -88,7 +88,8 @@ function App() {
   return (
     <>
       <div className="flex flex-col text-center p-4 h-screen border bg-gradient-to-b from-gray-50 to-gray-150">
-        <div className="flex flex-row justify-center">
+        <div className="flex flex-row justify-center content-center items-center">
+          <img src="logo.png" className="h-28" />
           <h1 className="text-4xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-700 via-green-800 to-green-900 drop-shadow-lg font-serif leading-tight pb-2">
             teXnology
           </h1>
