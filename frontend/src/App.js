@@ -68,9 +68,10 @@ function App() {
     return response.data;
   }
 
-  function refresh(e) {
+  async function refresh(e) {
     transcript = e.target.value;
-    setTex(postTextToLatex(transcript));
+    setTex(await postTextToLatex(transcript));
+    console.log(tex);
     setIsCompile(true);
   }
 
@@ -124,10 +125,12 @@ function App() {
               </dt>
             </dl>
           </div>
-  
-          <div className="flex-1 p-4">
-            pdf display
-            <LatexPreview isCompile={setIsCompile} content={tex} />
+
+          <div className="flex-1 flex-col">
+            <p>Latex Preview</p>
+            <p> {tex} </p>
+
+            <LatexPreview input={tex} />
           </div>
         </div>
       </div>
