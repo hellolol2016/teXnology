@@ -4,11 +4,7 @@ import "katex/dist/katex.min.css";
 import Dictaphone from "./components/mic";
 import Latex from "react-latex-next";
 import { useSpeechRecognition } from "react-speech-recognition";
-import LatexPreview from "./components/tex";
 import axios from "axios";
-import { FaRegCirclePlay } from "react-icons/fa6";
-import { GrPowerReset } from "react-icons/gr";
-import { FaRegStopCircle } from "react-icons/fa";
 
 function openInOverleaf(a) {
   /*
@@ -99,7 +95,7 @@ function App() {
             <h2 className="text-2xl font-semibold text-gray-700">
               Live Transcript
             </h2>
-            <button className="p-5 rounded-lg flex flex-col justify-center focus:outline-none focus:ring-2 focus:ring-gray-400 flex items-center">
+            <button className="p-5 rounded-lg flex flex-col justify-center focus:outline-none focus:ring-gray-400 flex items-center">
               <Dictaphone
                 transcript={transcript}
                 listening={listening}
@@ -124,7 +120,7 @@ function App() {
                 <pre>
                   <textarea
                     id="tex"
-                    className="bg-gray-100 p-3 w-5/6 min-h-96 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-gray-400"
+                    className="bg-gray-100 p-3 text-xl w-5/6 min-h-96 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-gray-400"
                     placeholder="Speak your math!"
                     onChange={updateTex}
                   />
@@ -133,7 +129,7 @@ function App() {
               <dt>
                 <button
                   href="#"
-                  className="bg-blue-200 p-2 rounded-md shadow-md"
+                  className="bg-blue-200 p-2 rounded-md shadow-md hover:bg-blue-300"
                   onClick={refresh}
                 >
                   Compile
@@ -157,6 +153,13 @@ function App() {
             >
               Open in Overleaf
             </button>
+                <button
+                  href="#"
+                  className="bg-green-200 p-2 rounded-md shadow-md hover:bg-green-300"
+                  onClick={openInOverleaf}
+                >
+                  Open in Overleaf
+                </button>
           </div>
         </div>
       </div>
