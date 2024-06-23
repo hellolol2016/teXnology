@@ -142,3 +142,45 @@ var removeDir = function (dirPath) {
   console.log("removing: " + dirPath);
   fs.rmdirSync(dirPath);
 };
+
+// ///////////////////////////////////////////////////////
+// // speech to Text
+// const axios = require('axios');
+
+// // Setup groq client
+// const client = axios.create({
+//     baseURL: 'https://api.groq.com/v1',
+//     headers: {
+//         'Authorization': 'Bearer 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'
+//     }
+// });
+
+// // Create Express app
+// app.use(express.json());
+
+// // Create endpoint for Groq API call
+// app.post('/textToLatex', async (req, res) => {
+//     const user_prompt = req.body.prompt;
+//     const user_message = {
+//         role: 'user',
+//         content: user_prompt
+//     };
+//     const messages = [system_message, user_message];
+
+//     try {
+//         const response = await client.post('/chat/completions', {
+//             messages: messages,
+//             model: "llama3-8b-8192"
+//         });
+//         res.json({ response: response.data.choices[0].message.content });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).send('Error processing request');
+//     }
+// });
+
+// // Start the server
+// const port = process.env.PORT || 3000;
+// app.listen(port, () => {
+//     console.log(`Server running on port ${port}`);
+// });

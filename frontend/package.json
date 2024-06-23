@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.7.2",
     "buffer": "^6.0.3",
+    "express": "^4.19.2",
     "latex.js": "^0.12.6",
     "pdf-lib": "^1.17.1",
     "react": "^18.3.1",
