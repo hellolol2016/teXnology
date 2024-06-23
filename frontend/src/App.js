@@ -73,6 +73,11 @@ function App() {
     setTex(await postTextToLatex(transcript));
     console.log(tex);
   }
+  function updateTex() {
+    let ta = document.getElementById("tex") 
+    transcript = ta.value
+  }
+
 
   return (
     <>
@@ -85,7 +90,6 @@ function App() {
             <h2 className="text-2xl font-semibold text-gray-700">
               Live Transcript
             </h2>
-            <p>"{transcript}"</p>
             <button className="bg-gray-200 p-5 rounded-lg shadow-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 flex items-center">
               <Dictaphone
                 transcript={transcript}
@@ -117,6 +121,7 @@ function App() {
                     id="tex"
                     className="bg-gray-100 p-3 w-1/2"
                     placeholder="Speak your math!"
+                    onChange={updateTex}
                   />
                 </pre>
               </dd>
