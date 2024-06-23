@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import Dictaphone from "./components/mic";
-import { LaTeX, Latex } from '@fileforge/react-print';
+import { LaTeX, Latex, compile } from "@fileforge/react-print";
 import LatexToPDF from "./components/tex";
 import { useSpeechRecognition } from "react-speech-recognition";
 import LatexPreview from "./components/tex";
+import axios from "axios";
 
 function openInOverleaf(a) {
   /*
@@ -41,22 +42,36 @@ function openInOverleaf(a) {
 
 function App() {
   const [tex, setTex] = useState("");
-  const [isCompile,setIsCompile] = useState(false)
+  const [isCompile, setIsCompile] = useState(false);
 
   let {
     transcript,
     listening,
     resetTranscript,
-    browserSupportsSpeechRecognition
+    browserSupportsSpeechRecognition,
   } = useSpeechRecognition();
 
   useEffect(() => {
-    
-    document.getElementById("tex").value = transcript; 
+    document.getElementById("tex").value = transcript;
   }, [transcript]);
 
+  async function postTextToLatex(text) {
+    const response = await axios.post(
+      "/textToLatex",
+      {},
+      {
+        params: {
+          prompt: text,
+        },
+      }
+    );
+    return response.data;
+  }
+
   function refresh(e) {
-    transcript = e.target.value 
+    transcript = e.target.value;
+    setTex(postTextToLatex(transcript));
+    setIsCompile(true);
   }
 
   return (
@@ -68,7 +83,14 @@ function App() {
             <h2>Live Transcript </h2>
             <p>"{transcript}"</p>
             <button className="bg-gray-200 p-5 ">
-              <Dictaphone transcript={transcript} listening={listening} resetTranscript={resetTranscript} browserSupportsSpeechRecognition={browserSupportsSpeechRecognition} />
+              <Dictaphone
+                transcript={transcript}
+                listening={listening}
+                resetTranscript={resetTranscript}
+                browserSupportsSpeechRecognition={
+                  browserSupportsSpeechRecognition
+                }
+              />
             </button>
 
             <form
@@ -105,7 +127,7 @@ function App() {
 
           <div className="flex-1 ">
             pdf display
-            <LatexPreview isCompile={setIsCompile} content={transcript}/> 
+            <LatexPreview isCompile={setIsCompile} content={tex} />
           </div>
         </div>{" "}
       </div>

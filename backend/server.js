@@ -12,7 +12,7 @@ var cors = require("cors");
 var fs = require("fs");
 var path = require("path");
 var temp = require("temp");
-import { Buffer } from "buffer";
+const Buffer = require("buffer");
 
 app.use(cors());
 app.use(fileupload());
