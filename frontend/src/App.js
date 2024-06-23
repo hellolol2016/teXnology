@@ -62,7 +62,7 @@ function App() {
 
   async function postTextToLatex(text) {
     const response = await axios.post(
-      "/textToLatex",
+      "http://localhost:8080/textToLatex",
       {},
       {
         params: {
