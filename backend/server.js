@@ -1,18 +1,31 @@
 // import Groq from "groq-sdk";
 const Groq = require("groq-sdk");
 const express = require("express");
+const parser = require("./latex/latex-log-parser");
+const fileupload = require("express-fileupload");
 const app = express();
+var cors = require("cors");
 var path = require("path");
-const cors = require("cors");
-app.use(cors)
+var temp = require("temp");
+const { Buffer } = require("buffer");
+
+app.use(cors());
+app.use(fileupload());
+app.use(express.static(path.join(__dirname, "/build")));
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname + "/build/index.html"));
 });
 
 const groq = new Groq({
-  apiKey: "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",
+  apiKey: "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",
 });
+
+const system_message = {
+  role: "system",
+  content:
+    "convert this text to latex. eliminate redundant phrases as necessary. return only the latex code. don't say 'here is the equivalent latex code' or qualify the statement in any way.",
+};
 
 const getGroqResponse = async (messages) => {
   return groq.chat.completions.create({
@@ -36,46 +49,8 @@ app.post("/textToLatex", async (req, res) => {
   res.send(response);
 });
 
-
-
-// ///////////////////////////////////////////////////////
-// // speech to Text
-// const axios = require('axios');
-
-// // Setup groq client
-// const client = axios.create({
-//     baseURL: 'https://api.groq.com/v1',
-//     headers: {
-//         'Authorization': 'Bearer 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'
-//     }
-// });
-
-// // Create Express app
-// app.use(express.json());
-
-// // Create endpoint for Groq API call
-// app.post('/textToLatex', async (req, res) => {
-//     const user_prompt = req.body.prompt;
-//     const user_message = {
-//         role: 'user',
-//         content: user_prompt
-//     };
-//     const messages = [system_message, user_message];
-
-//     try {
-//         const response = await client.post('/chat/completions', {
-//             messages: messages,
-//             model: "llama3-8b-8192"
-//         });
-//         res.json({ response: response.data.choices[0].message.content });
-//     } catch (error) {
-//         console.error(error);
-//         res.status(500).send('Error processing request');
-//     }
-// });
-
 // Start the server
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
+  console.log(`Server running on port ${port}`);
 });
