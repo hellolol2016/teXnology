@@ -96,7 +96,7 @@ function App() {
             <h2 className="text-2xl font-semibold text-gray-700">
               Live Transcript
             </h2>
-            <button className="p-5 rounded-lg hover:bg-gray-100 flex flex-col justify-center focus:outline-none focus:ring-2 focus:ring-gray-400 flex items-center">
+            <button className="p-5 rounded-lg flex flex-col justify-center focus:outline-none focus:ring-2 focus:ring-gray-400 flex items-center">
               <Dictaphone
                 transcript={transcript}
                 listening={listening}

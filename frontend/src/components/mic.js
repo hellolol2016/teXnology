@@ -26,11 +26,11 @@ const Dictaphone = ({transcript, listening, resetTranscript, browserSupportsSpee
     <div className='w-full'> 
       
       <div className='flex flex-row w-full justify-center'>
-      {!recording && <button onClick={startListening} className='bg-blue-400 p-2 rounded-lg shadow-md'><FaRegCirclePlay  className="w-24 h-24" /></button>}
-      {recording && <button onClick={stopListening} className='bg-red-400 p-2 rounded-lg shadow-md'><FaRegStopCircle className="w-24 h-24"/></button>}
+      {!recording && <button onClick={startListening} className='hover:bg-gray-200 bg-gray-100 p-5 rounded-full shadow-md'><FaRegCirclePlay  className="w-24 h-24" /></button>}
+      {recording && <button onClick={stopListening} className='hover:bg-gray-200 bg-gray-100 p-5 rounded-full shadow-md'><FaRegStopCircle className="w-24 h-24"/></button>}
       <div className='w-20'></div>
 
-      <button onClick={resetTranscript} className='bg-yellow-300 p-2 rounded-lg shadow-md'><RxReset className='w-24 h-24' /></button>
+      <button onClick={resetTranscript} className='hover:bg-gray-200 bg-gray-100 p-5 rounded-full shadow-md'><RxReset className='w-24 h-24' /></button>
 </div>
     </div>
   );
