@@ -45,7 +45,7 @@ function LatexPreview({ content,isCompile}) {
     const formData = new FormData();
     formData.append("foo", encodedString);
 
-    fetch("/upload", {
+    fetch("http://localhost:8080/upload", {
       method: "POST",
       body: formData,
     })

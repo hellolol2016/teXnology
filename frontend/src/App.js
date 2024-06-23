@@ -6,6 +6,7 @@ import LatexToPDF from "./components/tex";
 import { useSpeechRecognition } from "react-speech-recognition";
 import LatexPreview from "./components/tex";
 import axios from "axios";
+import placeholder from "./data/placeholder";
 
 function openInOverleaf(a) {
   /*
@@ -53,6 +54,10 @@ function App() {
 
   useEffect(() => {
     document.getElementById("tex").value = transcript;
+    if (transcript === "") {
+      localStorage.setItem("latex", placeholder);
+    } else {
+      localStorage.setItem("latex", transcript);}
   }, [transcript]);
 
   async function postTextToLatex(text) {
@@ -77,7 +82,9 @@ function App() {
   return (
     <>
       <div className="flex flex-col text-center">
-        <h1 class="text-4xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-yellow-500 drop-shadow-lg">teXnology</h1>
+        <h1 class="text-4xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-yellow-500 drop-shadow-lg">
+          teXnology
+        </h1>
         <div className="flex flex-row w-full ">
           <div className="flex flex-1 flex-col space-y-4">
             <h2>Live Transcript </h2>
