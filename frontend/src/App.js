@@ -120,7 +120,7 @@ function App() {
                 <pre>
                   <textarea
                     id="tex"
-                    className="bg-gray-100 p-3 w-1/2"
+                    className="bg-gray-100 p-3 w-3/4 h-full"
                     placeholder="Speak your math!"
                     onChange={updateTex}
                   />
