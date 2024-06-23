@@ -6,7 +6,6 @@ import LatexToPDF from "./components/tex";
 import { useSpeechRecognition } from "react-speech-recognition";
 import LatexPreview from "./components/tex";
 import axios from "axios";
-import placeholder from "./data/placeholder";
 
 function openInOverleaf(a) {
   /*
@@ -54,11 +53,7 @@ function App() {
 
   useEffect(() => {
     document.getElementById("tex").value = transcript;
-    if (transcript === "") {
-      localStorage.setItem("latex", placeholder);
-    } else {
-      localStorage.setItem("latex", transcript);}
-  }, [transcript]);
+  }, [transcript])
 
   async function postTextToLatex(text) {
     const response = await axios.post(
