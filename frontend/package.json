@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@deepgram/sdk": "^3.3.5",
     "@fileforge/client": "^0.1.15",
     "@fileforge/react-print": "^0.1.141",
     "@react-pdf-viewer/core": "^3.12.0",
@@ -13,7 +14,9 @@
     "axios": "^1.7.2",
     "buffer": "^6.0.3",
     "express": "^4.19.2",
+    "fs": "^0.0.1-security",
     "latex.js": "^0.12.6",
+    "os": "^0.1.2",
     "pdf-lib": "^1.17.1",
     "react": "^18.3.1",
     "react-audio-voice-recorder": "^2.2.0",

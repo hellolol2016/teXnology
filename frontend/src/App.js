@@ -41,19 +41,15 @@ function openInOverleaf(a) {
 }
 
 function App() {
+  const [transcript,setTranscript] = useState("")
   const [tex, setTex] = useState("");
   const [isCompile, setIsCompile] = useState(false);
 
-  let {
-    transcript,
-    listening,
-    resetTranscript,
-    browserSupportsSpeechRecognition,
-  } = useSpeechRecognition();
 
   useEffect(() => {
     document.getElementById("tex").value = transcript;
   }, [transcript]);
+
   useEffect(() => {
     document.getElementById("tex").value = tex;
   }, [tex]);
@@ -97,12 +93,7 @@ function App() {
             </h2>
             <button className="bg-gray-200 p-5 rounded-lg shadow-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 flex items-center">
               <Dictaphone
-                transcript={transcript}
-                listening={listening}
-                resetTranscript={resetTranscript}
-                browserSupportsSpeechRecognition={
-                  browserSupportsSpeechRecognition
-                }
+                setTranscript={transcript}
               />
               <img
                 src="/mic.jpg"

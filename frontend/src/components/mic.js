@@ -1,23 +1,86 @@
-import React from 'react';
-import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
+import React, { useRef } from "react";
+import fs from "fs"
 
-const Dictaphone = ({transcript, listening, resetTranscript, browserSupportsSpeechRecognition}) => {
+const Dictaphone = ({setTranscript}) => { 
+  const socketRef = useRef(null) 
+  const activateMic = () => {
+    console.log("gogogo");
 
-  if (!browserSupportsSpeechRecognition) {
-    return <span>Browser doesn't support speech recognition.</span>;
-  }
-  
-  const startListening = () => {
-    SpeechRecognition.startListening({ continuous: true });
-  } 
+    navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
+      if (!MediaRecorder.isTypeSupported("audio/webm")) {
+        return alert("Browser not supported!");
+      }
+      const mediaRecorder = new MediaRecorder(stream, {
+        mimeType: "audio/webm",
+      });
 
+      require("dotenv").config();
+
+      // Add Deepgram so you can get the transcription
+      const { Deepgram } = require("@deepgram/sdk");
+      const deepgram = new Deepgram(process.env.DEEPGRAM_KEY);
+
+      // Add WebSocket
+      const WebSocket = require("ws");
+      const wss = new WebSocket.Server({ port: 3002 });
+
+      // Open WebSocket connection and initiate live transcription
+      wss.on("connection", (ws) => {
+        const deepgramLive = deepgram.transcription.live({
+          interim_results: true,
+          punctuate: true,
+          endpointing: true,
+          vad_turnoff: 500,
+        });
+
+        deepgramLive.addListener("open", () => console.log("dg onopen"));
+        deepgramLive.addListener("error", (error) => console.log({ error }));
+
+        ws.onmessage = (event) => deepgramLive.send(event.data);
+        ws.onclose = () => deepgramLive.finish();
+
+        deepgramLive.addListener("transcriptReceived", (data) => ws.send(data));
+      });
+
+      const socket = new WebSocket("ws://localhost:3002");
+
+      socket.onopen = () => {
+        console.log({ event: "onopen" });
+        mediaRecorder.addEventListener("dataavailable", async (event) => {
+          if (event.data.size > 0 && socket.readyState === 1) {
+            socket.send(event.data);
+          }
+        });
+        mediaRecorder.start(1000);
+      };
+
+      socket.onmessage = (message) => {
+        const received = JSON.parse(message.data);
+        const transcript = received.channel.alternatives[0].transcript;
+        if (transcript) {
+          console.log(transcript);
+          setTranscript(transcript);
+        }
+      };
+
+
+      socket.onclose = () => {
+        console.log({ event: "onclose" });
+      };
+
+      socket.onerror = (error) => {
+        console.log({ event: "onerror", error });
+      };
+
+
+      socketRef.current = socket;
+    });
+  };
   return (
-    <div>
-      <p>Microphone: {listening ? 'on' : 'off'}</p> 
-      <button onClick={startListening} className='bg-blue-200 p-2'>Start</button>
-      <button onClick={SpeechRecognition.stopListening} className='bg-red-200 p-2'>Stop</button>
-      <button onClick={resetTranscript} className='bg-yellow-200 p-2'>Reset</button>
-    </div>
+
+    <button onClick={activateMic} type="button">
+      Record
+    </button>
   );
 };
 export default Dictaphone;
