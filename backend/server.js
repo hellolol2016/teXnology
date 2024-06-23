@@ -31,20 +31,26 @@ const system_message = {
     "convert this text to latex. eliminate redundant phrases as necessary. return only the latex code. don't say 'here is the equivalent latex code' or qualify the statement in any way.",
 };
 
-app.post("/textToLatex", (req, res) => {
+const getGroqResponse = async (messages) => {
+  return groq.chat.completions.create({
+    messages: messages,
+    model: "llama3-8b-8192",
+  });
+};
+
+app.post("/textToLatex", async (req, res) => {
   //groq stuff
-  const user_prompt = req.body.query;
+  const user_prompt = req.query.prompt;
   const user_message = {
     role: "user",
     content: user_prompt,
   };
-  messages = [system_message, user_message];
-  chat_completion = groq.chat.completions.create({
-    messages: messages,
-    model: "llama3-8b-8192",
-  });
 
-  res.status(200).send(chat_completion.message[0]?.message?.content || "");
+  messages = [system_message, user_message];
+
+  const chat_completion = await getGroqResponse(messages);
+  const response = chat_completion.choices[0]?.message?.content || "";
+  res.send(response);
 });
 
 app.post("/upload", function (req, res) {
