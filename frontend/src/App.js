@@ -76,25 +76,24 @@ function App() {
 
   return (
     <>
-      <div className="flex flex-col text-center">
-        <h1 class="text-4xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-yellow-500 drop-shadow-lg">
+      <div className="flex flex-col text-center p-4">
+        <h1 className="text-4xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-700 via-green-800 to-green-900 drop-shadow-lg font-serif leading-tight pb-2">
           teXnology
         </h1>
-        <div className="flex flex-row w-full ">
+        <div className="flex flex-row w-full mt-4">
           <div className="flex flex-1 flex-col space-y-4">
-            <h2>Live Transcript </h2>
+            <h2 className="text-2xl font-semibold text-gray-700">Live Transcript</h2>
             <p>"{transcript}"</p>
-            <button className="bg-gray-200 p-5 ">
+            <button className="bg-gray-200 p-5 rounded-lg shadow-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400">
               <Dictaphone
                 transcript={transcript}
                 listening={listening}
                 resetTranscript={resetTranscript}
-                browserSupportsSpeechRecognition={
-                  browserSupportsSpeechRecognition
-                }
+                browserSupportsSpeechRecognition={browserSupportsSpeechRecognition}
               />
+              <span className="ml-2">microphone icon</span>
             </button>
-
+  
             <form
               id="ol_form"
               action="https://www.overleaf.com/docs"
@@ -103,7 +102,7 @@ function App() {
             >
               <input id="ol_encoded_snip" type="hidden" name="encoded_snip" />
             </form>
-            <dl class="codebox">
+            <dl className="codebox">
               <dd>
                 <pre>
                   <textarea
@@ -120,7 +119,6 @@ function App() {
                   className="bg-green-200 p-2 rounded-md"
                   onClick={openInOverleaf}
                 >
-                  {" "}
                   Open in Overleaf
                 </button>
                 <button
@@ -143,6 +141,8 @@ function App() {
       </div>
     </>
   );
+  
+    
 }
 
 export default App;
