@@ -69,7 +69,7 @@ function App() {
         <div className="flex flex-row justify-center w-full mt-4 gap-7 h-full">
           <div className="flex flex-1 flex-col space-y-4">
             <button
-              className={`p-5 rounded-lg flex flex-col justify-center focus:outline-none focus:ring-gray-400 flex items-center `}
+              className={`p-5 rounded-lg flex-col justify-center focus:outline-none focus:ring-gray-400 flex items-center `}
             >
               <Dictaphone
                 transcript={transcript}
@@ -131,7 +131,9 @@ function App() {
 
             <button
               href="#"
-              className={`${tex.length==0?"hidden ": ""} border-4 border-black  font-bold font-lg p-3 px-4 rounded-md hover:shadow-md hover:bg-gray-100 m-3`}
+              className={`${
+                tex.length == 0 ? "hidden " : ""
+              } border-4 border-black  font-bold font-lg p-3 px-4 rounded-md hover:shadow-md hover:bg-gray-100 m-3`}
               onClick={openInOverleaf}
             >
               Open in Overleaf

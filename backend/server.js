@@ -15,8 +15,9 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname + "/build/index.html"));
 });
 
+console.log(process.env);
 const groq = new Groq({
-  apiKey: "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",
+  apiKey: process.env.GROQ_API_KEY,
 });
 
 const system_message = {
